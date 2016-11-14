@@ -31,4 +31,3 @@ function resource($uri, $controller)
 
 $app->get('/crud-wifi-points', 'View\WifiPointsController@index');
 $app->get('/', 'View\WifiPointsController@manageVue');
-

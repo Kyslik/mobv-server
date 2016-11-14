@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Validator;
 
 class WifiPointsController extends Controller
 {
-
     private $rules = [
         'ssid'      => 'required',
     ];
@@ -23,18 +22,14 @@ class WifiPointsController extends Controller
      */
     public function index()
     {
-
         try {
             $objects = WifiPoint::
             get();
 
             return ['success' => true, 'data' => $objects];
-        }
-        catch(Exception $e){
+        } catch (Exception $e) {
             return ['success' => false, 'error' => $e->getMessage()];
         }
-
-
     }
 
     /**
@@ -57,11 +52,9 @@ class WifiPointsController extends Controller
         $inputs = $request->input();
 
         try {
-
             $validator = Validator::make($inputs, $this->rules);
 
             if ($validator->fails()) {
-
                 return ['success' => false, 'error' => $validator->messages()->all()];
             }
 
@@ -72,11 +65,9 @@ class WifiPointsController extends Controller
                 'success' => true,
                 'data'    => WifiPoint::find($model->id)
             ];
-
         } catch (Exception $ex) {
             return ['success' => false, 'error' => $ex->getMessage()];
         }
-
     }
 
     /**
@@ -113,11 +104,9 @@ class WifiPointsController extends Controller
         $inputs = $request->input();
 
         try {
-
             $validator = Validator::make($inputs, $this->rules);
 
             if ($validator->fails()) {
-
                 return ['success' => false, 'error' => $validator->messages()->all()];
             }
 
@@ -136,8 +125,6 @@ class WifiPointsController extends Controller
                     'error'   => $e->getMessage()
                 ];
         }
-
-
     }
 
     /**
@@ -162,7 +149,5 @@ class WifiPointsController extends Controller
                     'error'   => $e->getMessage()
                 ];
         }
-
-
     }
 }

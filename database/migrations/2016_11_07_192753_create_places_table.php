@@ -13,23 +13,12 @@ class CreatePlacesTable extends Migration
      */
     public function up()
     {
-        Schema::create("places", function (Blueprint $table) {
+        Schema::create('places', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->engine = 'InnoDB';
-
-            $table->text("block");
-            $table->integer("floor");
-
+            $table->char('block', 1);
+            $table->tinyInteger('level');
             $table->timestamps();
-        });
-
-        Schema::create('places_wifi_points', function (Blueprint $table) {
-            $table->integer('place_id')->unsigned();
-            $table->integer('wifi_point_id')->unsigned();
-            $table->timestamps();
-
-            $table->engine = 'InnoDB';
-            $table->primary(['place_id', 'wifi_point_id']);
         });
     }
 
@@ -40,7 +29,6 @@ class CreatePlacesTable extends Migration
      */
     public function down()
     {
-        Schema::drop("places");
-        Schema::drop("places_wifi_points");
+        Schema::drop('places');
     }
 }

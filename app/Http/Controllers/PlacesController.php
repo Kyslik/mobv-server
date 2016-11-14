@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 
 class PlacesController extends Controller
 {
-
     private $rules = [
         'block'      => 'required',
         'floor'      => 'required',
@@ -23,18 +22,14 @@ class PlacesController extends Controller
      */
     public function index()
     {
-
         try {
             $objects = Place::
             get();
 
             return ['success' => true, 'data' => $objects];
-        }
-        catch(Exception $e){
+        } catch (Exception $e) {
             return ['success' => false, 'error' => $e->getMessage()];
         }
-
-
     }
 
     /**
@@ -57,11 +52,9 @@ class PlacesController extends Controller
         $inputs = $request->input();
 
         try {
-
             $validator = Validator::make($inputs, $this->rules);
 
             if ($validator->fails()) {
-
                 return ['success' => false, 'error' => $validator->messages()->all()];
             }
 
@@ -72,11 +65,9 @@ class PlacesController extends Controller
                 'success' => true,
                 'data'    => Place::find($model->id)
             ];
-
         } catch (Exception $ex) {
             return ['success' => false, 'error' => $ex->getMessage()];
         }
-
     }
 
     /**
@@ -113,11 +104,9 @@ class PlacesController extends Controller
         $inputs = $request->input();
 
         try {
-
             $validator = Validator::make($inputs, $this->rules);
 
             if ($validator->fails()) {
-
                 return ['success' => false, 'error' => $validator->messages()->all()];
             }
 
@@ -136,8 +125,6 @@ class PlacesController extends Controller
                     'error'   => $e->getMessage()
                 ];
         }
-
-
     }
 
     /**
@@ -162,7 +149,5 @@ class PlacesController extends Controller
                     'error'   => $e->getMessage()
                 ];
         }
-
-
     }
 }

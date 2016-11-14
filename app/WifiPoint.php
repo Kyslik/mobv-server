@@ -12,7 +12,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class WifiPoint extends Model
 {
-
     protected $fillable = [
         'ssid',
         'bssid',
@@ -23,5 +22,4 @@ class WifiPoint extends Model
         'distance',
         'distanceSd'
     ];
-
 }
