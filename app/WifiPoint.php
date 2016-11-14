@@ -18,8 +18,7 @@ class WifiPoint extends Model
         'capabilities',
         'level',
         'frequency',
-        'timestamp',
         'distance',
-        'distanceSd'
+        'distance_sd'
     ];
 }
