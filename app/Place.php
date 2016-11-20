@@ -18,4 +18,9 @@ class Place extends Model
         'floor',
     ];
 
+
+    public function wifi_points(){
+        return $this->belongsToMany('App\WifiPoint');
+    }
+    
 }

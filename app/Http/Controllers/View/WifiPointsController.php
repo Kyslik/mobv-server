@@ -12,8 +12,7 @@ class WifiPointsController extends Controller
 
     public function manageVue()
     {
-//        dd(WifiPoint::all()->toArray());
-        return view('manage-vue');
+        return view('wifi-points');
     }
 
     /**

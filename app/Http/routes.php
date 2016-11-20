@@ -31,4 +31,8 @@ function resource($uri, $controller)
 
 $app->get('/crud-wifi-points', 'View\WifiPointsController@index');
 $app->get('/', 'View\WifiPointsController@manageVue');
+$app->get('/places', 'View\PlacesController@index');
+
+// create places, block A - E and floors
+//$app->get('/create-places', 'View\PlacesController@createBlocksAndFloors');
 

@@ -12,7 +12,8 @@ class WifiPointsController extends Controller
 {
 
     private $rules = [
-        'ssid'      => 'required',
+        'ssid'  => 'required',
+        'bssid' => 'required|unique:wifi_points'
     ];
 
 
@@ -29,8 +30,7 @@ class WifiPointsController extends Controller
             get();
 
             return ['success' => true, 'data' => $objects];
-        }
-        catch(Exception $e){
+        } catch (Exception $e) {
             return ['success' => false, 'error' => $e->getMessage()];
         }
 

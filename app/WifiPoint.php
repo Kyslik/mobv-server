@@ -24,4 +24,8 @@ class WifiPoint extends Model
         'distanceSd'
     ];
 
+    public function places(){
+        return $this->belongsToMany('App\Place');
+    }
+    
 }
