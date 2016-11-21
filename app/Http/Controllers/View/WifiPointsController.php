@@ -9,10 +9,10 @@ use Illuminate\Http\Request;
 
 class WifiPointsController extends Controller
 {
+
     public function manageVue()
     {
-        //        dd(WifiPoint::all()->toArray());
-        return view('manage-vue');
+        return view('wifi-points');
     }
 
     /**
@@ -39,4 +39,5 @@ class WifiPointsController extends Controller
 
         return response()->json($response);
     }
+
 }

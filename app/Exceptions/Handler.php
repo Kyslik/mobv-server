@@ -7,7 +7,7 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
+use HolidayPirates\BugsnagLumen\BugsnagExceptionHandler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {
