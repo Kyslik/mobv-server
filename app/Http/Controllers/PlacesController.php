@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Place;
-use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
