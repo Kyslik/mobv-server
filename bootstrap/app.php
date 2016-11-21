@@ -92,6 +92,10 @@ if ($app->environment() !== 'production') {
 
 $app->register(Appzcoder\LumenRoutesList\RoutesCommandServiceProvider::class);
 
+$app->configure('bugsnag');
+
+$app->register(Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class);
+
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
