@@ -1,9 +1,4 @@
 <?php
-use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
-
-$app->get('bugsnag', function(){
-    Bugsnag::notifyError('ErrorType', 'Test Error');
-});
 
 $app->group(['prefix' => 'api/v1'], function (Laravel\Lumen\Application $app) {
     $app->get('wifi-points', 'WifiPointsController@index');
