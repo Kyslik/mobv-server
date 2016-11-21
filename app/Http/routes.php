@@ -39,5 +39,6 @@ $app->get('/places/attach/{id}', 'View\PlacesController@addWifiPoints');
 $app->get('/places/sync/{id}', 'View\PlacesController@syncWifiPoints');
 
 //deployment push
+//deployment push
 // create places, block A - E and floors
 //$app->get('/create-places', 'View\PlacesController@createBlocksAndFloors');
