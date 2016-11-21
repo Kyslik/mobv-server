@@ -51,30 +51,4 @@ class PlacesController extends Controller
 
         return view('places', compact('result'));
     }
-
-//    /**
-//     * Display a listing of the resource.
-//     *
-//     * @param Request $request
-//     * @return \Illuminate\Http\Response
-//     */
-//    public function index(Request $request)
-//    {
-//        $items = WifiPoint::latest()->paginate(5);
-//
-//        $response = [
-//            'pagination' => [
-//                'total' => $items->total(),
-//                'per_page' => $items->perPage(),
-//                'current_page' => $items->currentPage(),
-//                'last_page' => $items->lastPage(),
-//                'from' => $items->firstItem(),
-//                'to' => $items->lastItem()
-//            ],
-//            'data' => $items
-//        ];
-//
-//        return response()->json($response);
-//    }
-
 }

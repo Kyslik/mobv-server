@@ -3,167 +3,69 @@
 namespace App\Http\Controllers;
 
 use App\WifiPoint;
-use Carbon;
-use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class WifiPointsController extends Controller
 {
-
-    private $rules = [
-        'ssid'  => 'required',
-        'bssid' => 'required|unique:wifi_points'
+    private $rules_store = [
+        'bssid' => 'required',
     ];
 
+    private $rules_update = [
+        'ssid' => '',
+    ];
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    private $wifi_point;
+
+    public function __construct(WifiPoint $wifi_point)
+    {
+        $this->wifi_point = $wifi_point;
+    }
+
     public function index()
     {
-
-        try {
-            $objects = WifiPoint::
-            get();
-
-            return ['success' => true, 'data' => $objects];
-        } catch (Exception $e) {
-            return ['success' => false, 'error' => $e->getMessage()];
-        }
-
-
+        return response()->json($this->wifi_point->all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        $inputs = $request->input();
-
-        try {
-
-            $validator = Validator::make($inputs, $this->rules);
-
-            if ($validator->fails()) {
-
-                return ['success' => false, 'error' => $validator->messages()->all()];
-            }
-
-
-            $model = WifiPoint::create($inputs);
-
-            return [
-                'success' => true,
-                'data'    => WifiPoint::find($model->id)
-            ];
-
-        } catch (Exception $ex) {
-            return ['success' => false, 'error' => $ex->getMessage()];
-        }
-
+        $this->validate($request, $this->rules_store);
+        $this->wifi_point->create($request->input());
+        return response()->json(['created' => true], 201);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        return WifiPoint::find($id);
+        try {
+            return response()->json($this->wifi_point->findOrFail($id));
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['error' => $e->getMessage()], 404);
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        $inputs = $request->input();
+        $this->validate($request, $this->rules_update);
 
         try {
-
-            $validator = Validator::make($inputs, $this->rules);
-
-            if ($validator->fails()) {
-
-                return ['success' => false, 'error' => $validator->messages()->all()];
-            }
-
-            $model = WifiPoint::find($id);
-            $model->update($inputs);
-
-            return
-                [
-                    'success' => true,
-                    'data'    => WifiPoint::find($model->id)
-                ];
-        } catch (Exception $e) {
-            return
-                [
-                    'success' => false,
-                    'error'   => $e->getMessage()
-                ];
+            $wifi_point = $this->wifi_point->findOrFail($id);
+            $wifi_point->update($request->input());
+            return response()->json($wifi_point, 200);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['error' => $e->getMessage()], 404);
         }
-
-
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        $model = WifiPoint::find($id);
-
         try {
-            return
-                [
-                    'success' => $model->delete(),
-                ];
-        } catch (Exception $e) {
-            return
-                [
-                    'success' => false,
-                    'error'   => $e->getMessage()
-                ];
+            $wifi_point = $this->wifi_point->findOrFail($id);
+            $wifi_point->delete();
+            return response()->json([], 204);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['error' => $e->getMessage()], 404);
         }
-
-
     }
-    
 }
+

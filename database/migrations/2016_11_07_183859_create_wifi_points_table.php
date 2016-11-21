@@ -14,19 +14,16 @@ class CreateWifiPointsTable extends Migration
      */
     public function up()
     {
-        Schema::create("wifi_points", function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('wifi_points', function (Blueprint $table) {
+            // https://developer.android.com/reference/android/net/wifi/ScanResult.html
             $table->engine = 'InnoDB';
-
-            $table->text("ssid");
-            $table->text("bssid");
-            $table->text("capabilities")->nullable();;
-            $table->text("level")->nullable();;
-            $table->text("frequency")->nullable();;
-            $table->text("timestamp")->nullable();;
-            $table->text("distance")->nullable();
-            $table->text("distanceSd")->nullable();
-
+            $table->increments('id');
+            $table->string('bssid', 17);
+            $table->string('ssid')->nullable()->default(null);
+            $table->text('capabilities')->nullable()->default(null);
+            $table->integer('level')->nullable()->default(null);
+            $table->integer('frequency')->nullable()->default(null);
+            $table->string('timestamp', 64)->nullable()->default(null);
             $table->timestamps();
         });
     }
@@ -38,6 +35,6 @@ class CreateWifiPointsTable extends Migration
      */
     public function down()
     {
-        Schema::drop("wifi_points");
+        Schema::drop('wifi_points');
     }
 }
