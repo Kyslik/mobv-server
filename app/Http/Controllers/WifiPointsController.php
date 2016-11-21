@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class WifiPointsController extends Controller
 {
     private $rules_store = [
-        'ssid' => 'required',
+        'bssid' => 'required',
     ];
 
     private $rules_update = [
@@ -31,7 +31,7 @@ class WifiPointsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, $this->rules_store);
-        $this->wifi_point->create($request->only(['block', 'level']));
+        $this->wifi_point->create($request->input());
         return response()->json(['created' => true], 201);
     }
 
@@ -50,7 +50,7 @@ class WifiPointsController extends Controller
 
         try {
             $wifi_point = $this->wifi_point->findOrFail($id);
-            $wifi_point->update($request->only(['block', 'level']));
+            $wifi_point->update($request->input());
             return response()->json($wifi_point, 200);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => $e->getMessage()], 404);

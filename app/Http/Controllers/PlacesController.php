@@ -33,7 +33,7 @@ class PlacesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, $this->rules_store);
-        $this->place->create($request->only(['block', 'level']));
+        $this->place->create($request->input());
         return response()->json(['created' => true], 201);
     }
 
@@ -52,7 +52,7 @@ class PlacesController extends Controller
 
         try {
             $place = $this->place->findOrFail($id);
-            $place->update($request->only(['block', 'level']));
+            $place->update($request->input());
             return response()->json($place, 200);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => $e->getMessage()], 404);

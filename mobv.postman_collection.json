@@ -1,14 +1,14 @@
 {
 	"variables": [],
 	"info": {
-		"name": "mobv",
-		"_postman_id": "661b2302-a5fa-9d2d-c31a-36045c72da31",
-		"description": "",
+		"name": "mobv collection",
+		"_postman_id": "23654c6c-d918-b7a5-7aef-b0aec85e8b89",
+		"description": "Collection of mobv-server API.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "http://mobv.dev/api/v1/places",
+			"name": "places get all",
 			"request": {
 				"url": "http://mobv.dev/api/v1/places",
 				"method": "GET",
@@ -23,26 +23,12 @@
 					"mode": "raw",
 					"raw": "  {\n    \"block\": \"D\",\n    \"level\": 1\n  }"
 				},
-				"description": "get all places"
+				"description": ""
 			},
 			"response": []
 		},
 		{
-			"name": "http://mobv.dev/api/v1/places/1",
-			"request": {
-				"url": "http://mobv.dev/api/v1/places/1",
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": []
-				},
-				"description": "get place by id"
-			},
-			"response": []
-		},
-		{
-			"name": "http://mobv.dev/api/v1/places",
+			"name": "places create",
 			"request": {
 				"url": "http://mobv.dev/api/v1/places",
 				"method": "POST",
@@ -57,12 +43,26 @@
 					"mode": "raw",
 					"raw": "  {\n    \"block\": \"D\",\n    \"level\": 1\n  }"
 				},
-				"description": "create place"
+				"description": ""
 			},
 			"response": []
 		},
 		{
-			"name": "http://mobv.dev/api/v1/places/1",
+			"name": "places get by id",
+			"request": {
+				"url": "http://mobv.dev/api/v1/places/1",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "places patch | put by id",
 			"request": {
 				"url": "http://mobv.dev/api/v1/places/1",
 				"method": "PATCH",
@@ -77,12 +77,12 @@
 					"mode": "raw",
 					"raw": "{\n\t\"block\": \"D\",\n\t\"level\": 3\n}"
 				},
-				"description": "patch|put place"
+				"description": "Explicit behaviour! What you send you get back."
 			},
 			"response": []
 		},
 		{
-			"name": "http://mobv.dev/api/v1/places/1",
+			"name": "places delete",
 			"request": {
 				"url": "http://mobv.dev/api/v1/places/1",
 				"method": "DELETE",
@@ -91,7 +91,95 @@
 					"mode": "formdata",
 					"formdata": []
 				},
-				"description": "delete place"
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "wifi-points get all",
+			"request": {
+				"url": "http://mobv.dev/api/v1/wifi-points",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n    \"block\": \"D\",\n    \"level\": 1\n  }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "wifi-points create",
+			"request": {
+				"url": "http://mobv.dev/api/v1/wifi-points",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n    \"ssid\": \"Jozkova Wifka\",\n    \"bssid\": \"0e:40:08:99:3f:22\",\n    \"capabilities\": \"[WPA-EAP...]\",\n    \"level\": -10,\n    \"frequency\": 5000,\n    \"timestamp\": \"12319239148128\"\n  }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "wifi-points get by id",
+			"request": {
+				"url": "http://mobv.dev/api/v1/wifi-points/1",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "wifi-points patch | put by id",
+			"request": {
+				"url": "http://mobv.dev/api/v1/wifi-points/1",
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"ssid\": \"Dezkova Wifka\",\n    \"bssid\": \"00:40:08:99:3f:22\",\n    \"capabilities\": \"\",\n    \"level\": -18,\n    \"frequency\": 4500,\n    \"timestamp\": \"5836542254528\"\n}"
+				},
+				"description": "Explicit behaviour! What you send you get back."
+			},
+			"response": []
+		},
+		{
+			"name": "wifi-points delete",
+			"request": {
+				"url": "http://mobv.dev/api/v1/wifi-points/1",
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
 			},
 			"response": []
 		}
