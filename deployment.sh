@@ -6,6 +6,5 @@
 # /home/visi.sk/sub/mobv-server/artisan in case artisan command needed
 
 git up
-composer install
-composer dump-autoload -o
+composer install --dev --no-suggest -o
 
