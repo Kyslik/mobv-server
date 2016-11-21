@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Place;
+use App\WifiPoint;
 use Carbon;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 
 class PlacesController extends Controller
 {
@@ -164,5 +166,51 @@ class PlacesController extends Controller
         }
 
 
+    }
+
+    public function addWifiPoints($id)
+    {
+        try {
+            $model = WifiPoint::find($id);
+
+            $wifi_points = Input::get('wifi_points', []);
+
+            $model->attach($wifi_points);
+
+            return
+                [
+                    'success' => WifiPoint::with(['wifi_points'])->find($id),
+                ];
+        }
+        catch(Exception $e){
+            return
+                [
+                    'success' => false,
+                    'error'   => $e->getMessage()
+                ];
+        }
+    }
+
+    public function syncWifiPoints($id)
+    {
+        try {
+            $model = WifiPoint::find($id);
+
+            $wifi_points = Input::get('wifi_points', []);
+
+            $model->sync($wifi_points);
+
+            return
+                [
+                    'success' => WifiPoint::with(['wifi_points'])->find($id),
+                ];
+        }
+        catch(Exception $e){
+            return
+                [
+                    'success' => false,
+                    'error'   => $e->getMessage()
+                ];
+        }
     }
 }

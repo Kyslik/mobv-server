@@ -165,50 +165,5 @@ class WifiPointsController extends Controller
 
 
     }
-
-    public function addWifiPoints($id)
-    {
-        try {
-            $model = WifiPoint::find($id);
-
-            $wifi_points = Input::get('wifi_points', []);
-
-            $model->attach($wifi_points);
-
-            return
-                [
-                    'success' => WifiPoint::with(['wifi_points'])->find($id),
-                ];
-        }
-        catch(Exception $e){
-            return
-                [
-                    'success' => false,
-                    'error'   => $e->getMessage()
-                ];
-        }
-    }
-
-    public function syncWifiPoints($id)
-    {
-        try {
-            $model = WifiPoint::find($id);
-
-            $wifi_points = Input::get('wifi_points', []);
-
-            $model->sync($wifi_points);
-
-            return
-                [
-                    'success' => WifiPoint::with(['wifi_points'])->find($id),
-                ];
-        }
-        catch(Exception $e){
-            return
-                [
-                    'success' => false,
-                    'error'   => $e->getMessage()
-                ];
-        }
-    }
+    
 }
