@@ -1,0 +1,19 @@
+{
+  "name": "mobv-server",
+  "version": "0.0.1",
+  "description": "API mobv-server",
+  "url": "http://mobv-server.visi.sk/api/v1",
+  "order": [
+    "GetPlaces",
+    "PostPlace",
+    "GetPlace",
+    "PatchPlace",
+    "SyncPlaceWithWifiPoints",
+    "DeletePlace",
+    "GetWifiPoints",
+    "GetWifiPoint",
+    "PostWifiPoint",
+    "PatchWifiPoint",
+    "DeleteWifiPoint"
+  ]
+}
