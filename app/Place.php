@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property boolean $level
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\WifiPoint[] $wifiPoints
  * @method static \Illuminate\Database\Query\Builder|\App\Place whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Place whereBlock($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Place whereLevel($value)
@@ -25,4 +26,9 @@ class Place extends Model
         'block',
         'level',
     ];
+
+    public function wifiPoints()
+    {
+        return $this->belongsToMany(WifiPoint::class)->withTimestamps();
+    }
 }

@@ -8,11 +8,11 @@ use Illuminate\Http\Request;
 
 class WifiPointsController extends Controller
 {
-    private $rules_store = [
+    protected $rules_store = [
         'bssid' => 'required',
     ];
 
-    private $rules_update = [
+    protected $rules_update = [
         'ssid' => '',
     ];
 

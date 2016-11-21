@@ -8,12 +8,12 @@ use Illuminate\Http\Request;
 
 class PlacesController extends Controller
 {
-    private $rules_store = [
+    protected $rules_store = [
         'block' => 'required',
         'level' => 'required',
     ];
 
-    private $rules_update = [
+    protected $rules_update = [
         'block' => '',
         'level' => '',
     ];

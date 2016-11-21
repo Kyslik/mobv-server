@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $timestamp
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Place[] $places
  * @method static \Illuminate\Database\Query\Builder|\App\WifiPoint whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\WifiPoint whereBssid($value)
  * @method static \Illuminate\Database\Query\Builder|\App\WifiPoint whereSsid($value)
@@ -42,4 +43,9 @@ class WifiPoint extends Model
         'level' => 'integer',
         'frequency' => 'integer'
     ];
+
+    public function places()
+    {
+        return $this->belongsToMany(Place::class)->withTimestamps();
+    }
 }

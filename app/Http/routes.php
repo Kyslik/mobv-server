@@ -1,7 +1,6 @@
 <?php
 
-$app->group(['prefix' => 'api/v1'], function(Laravel\Lumen\Application $app)
-{
+$app->group(['prefix' => 'api/v1'], function (Laravel\Lumen\Application $app) {
     $app->get('wifi-points', 'WifiPointsController@index');
     $app->post('wifi-points', 'WifiPointsController@store');
     $app->get('wifi-points/{id}', 'WifiPointsController@show');
@@ -9,12 +8,23 @@ $app->group(['prefix' => 'api/v1'], function(Laravel\Lumen\Application $app)
     $app->patch('wifi-points/{id}', 'WifiPointsController@update');
     $app->delete('wifi-points/{id}', 'WifiPointsController@destroy');
 
-    $app->get('places', 'PlacesController@index');
-    $app->post('places', 'PlacesController@store');
-    $app->get('places/{id}', 'PlacesController@show');
-    $app->put('places/{id}', 'PlacesController@update');
-    $app->patch('places/{id}', 'PlacesController@update');
-    $app->delete('places/{id}', 'PlacesController@destroy');
+    $app->group(['prefix' => 'places'], function (Laravel\Lumen\Application $app) {
+        $app->get('/', 'PlacesController@index');
+        $app->post('/', 'PlacesController@store');
+        $app->get('/{id}', 'PlacesController@show');
+        $app->put('/{id}', 'PlacesController@update');
+        $app->patch('/{id}', 'PlacesController@update');
+        $app->delete('/{id}', 'PlacesController@destroy');
+
+        $app->group(['prefix' => '{place_id}/wifi-points'], function (Laravel\Lumen\Application $app) {
+            $app->get('/', 'PlacesWifiPointsController@index');
+            $app->post('/', 'PlacesWifiPointsController@store');
+            $app->get('/{id}', 'PlacesWifiPointsController@show');
+            $app->put('/{id}', 'PlacesWifiPointsController@update');
+            $app->patch('/{id}', 'PlacesWifiPointsController@update');
+            $app->delete('/{id}', 'PlacesWifiPointsController@destroy');
+        });
+    });
 });
 
 $app->get('/crud-wifi-points', 'View\WifiPointsController@index');
