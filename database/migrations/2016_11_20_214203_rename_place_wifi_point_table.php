@@ -13,7 +13,7 @@ class RenamePlaceWifiPointTable extends Migration
      */
     public function up()
     {
-        Schema::rename("places_wifi_points", "place_wifi_point");
+        Schema::rename('places_wifi_points', 'place_wifi_point');
 
     }
 
@@ -24,6 +24,6 @@ class RenamePlaceWifiPointTable extends Migration
      */
     public function down()
     {
-        Schema::rename("place_wifi_point", "places_wifi_points");
+        Schema::rename('place_wifi_point', 'places_wifi_points');
     }
 }
