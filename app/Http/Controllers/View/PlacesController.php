@@ -10,18 +10,15 @@ use Illuminate\Http\Request;
 
 class PlacesController extends Controller
 {
-
     public function createBlocksAndFloors()
     {
-        foreach(['A', 'B', 'C', 'D', 'E'] as $block){
-
-            if($block == 'E'){
+        foreach (['A', 'B', 'C', 'D', 'E'] as $block) {
+            if ($block == 'E') {
                 $start = -2;
             } else {
                 $start = 1;
             }
-            for($i = $start; $i <= 8; $i++){
-
+            for ($i = $start; $i <= 8; $i++) {
                 Place::create(
                     [
                         'block' => $block,
@@ -41,12 +38,11 @@ class PlacesController extends Controller
             ->get();
 
         $result = [];
-        foreach($places as $place){
-            if(!isset($result[$place->block][$place->floor])){
+        foreach ($places as $place) {
+            if (!isset($result[$place->block][$place->floor])) {
                 $result[$place->block][$place->floor] = [];
             }
             $result[$place->block][$place->floor][] = $place;
-
         }
 
         return view('places', compact('result'));

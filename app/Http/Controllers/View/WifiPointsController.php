@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 
 class WifiPointsController extends Controller
 {
-
     public function manageVue()
     {
         return view('wifi-points');
@@ -39,5 +38,4 @@ class WifiPointsController extends Controller
 
         return response()->json($response);
     }
-
 }
