@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Place;
+use App\WifiPoint;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
@@ -65,6 +66,18 @@ class PlacesController extends Controller
             $place = $this->place->findOrFail($id);
             $place->delete();
             return response()->json([], 204);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['error' => $e->getMessage()], 404);
+        }
+    }
+
+    public function sync(Request $request, WifiPoint $wifi_point, $id)
+    {
+        try {
+            $place = $this->place->findOrFail($id);
+            $wifi_points = $wifi_point->findMany($request->input());
+            $place->wifiPoints()->sync($wifi_points->pluck('id')->toArray());
+            return response()->json($place->load('wifiPoints'), 200);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => $e->getMessage()], 404);
         }

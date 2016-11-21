@@ -16,6 +16,8 @@ $app->group(['prefix' => 'api/v1'], function (Laravel\Lumen\Application $app) {
         $app->patch('/{id}', 'PlacesController@update');
         $app->delete('/{id}', 'PlacesController@destroy');
 
+        $app->post('/{id}/sync', 'PlacesController@sync');
+
         $app->group(['prefix' => '{place_id}/wifi-points'], function (Laravel\Lumen\Application $app) {
             $app->get('/', 'PlacesWifiPointsController@index');
             $app->post('/', 'PlacesWifiPointsController@store');
@@ -23,6 +25,8 @@ $app->group(['prefix' => 'api/v1'], function (Laravel\Lumen\Application $app) {
             $app->put('/{id}', 'PlacesWifiPointsController@update');
             $app->patch('/{id}', 'PlacesWifiPointsController@update');
             $app->delete('/{id}', 'PlacesWifiPointsController@destroy');
+            $app->post('/{id}/attach', 'PlacesController@attach');
+            $app->post('/{id}/detach', 'PlacesController@detach');
         });
     });
 });
