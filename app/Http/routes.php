@@ -25,8 +25,8 @@ $app->group(['prefix' => 'api/v1'], function (Laravel\Lumen\Application $app) {
             $app->put('/{id}', 'PlacesWifiPointsController@update');
             $app->patch('/{id}', 'PlacesWifiPointsController@update');
             $app->delete('/{id}', 'PlacesWifiPointsController@destroy');
-            $app->post('/{id}/attach', 'PlacesController@attach');
-            $app->post('/{id}/detach', 'PlacesController@detach');
+//            $app->post('/{id}/attach', 'PlacesController@attach');
+//            $app->post('/{id}/detach', 'PlacesController@detach');
         });
     });
 });
@@ -38,10 +38,5 @@ $app->get('/places', 'View\PlacesController@index');
 $app->get('/places/attach/{id}', 'View\PlacesController@addWifiPoints');
 $app->get('/places/sync/{id}', 'View\PlacesController@syncWifiPoints');
 
-//deployment push
-//deployment push
-//deployment push
-//deployment push
-//deployment push #5
 // create places, block A - E and floors
 //$app->get('/create-places', 'View\PlacesController@createBlocksAndFloors');
