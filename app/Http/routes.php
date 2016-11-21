@@ -1,33 +1,21 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It is a breeze. Simply tell Lumen the URIs it should respond to
-| and give it the Closure to call when that URI is requested.
-|
-*/
-
-
-resource('wifi-points', 'WifiPointsController');
-resource('places', 'PlacesController');
-
-function resource($uri, $controller)
+$app->group(['prefix' => 'api/v1'], function(Laravel\Lumen\Application $app)
 {
-    //$verbs = array('GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE');
-    global $app;
-    $app->get($uri, $controller.'@index');
-    $app->get($uri.'/create', $controller.'@create');
-    $app->post($uri, $controller.'@store');
-    $app->get($uri.'/{id}', $controller.'@show');
-    $app->get($uri.'/{id}/edit', $controller.'@edit');
-    $app->put($uri.'/{id}', $controller.'@update');
-    $app->patch($uri.'/{id}', $controller.'@update');
-    $app->delete($uri.'/{id}', $controller.'@destroy');
-}
+    $app->get('wifi-points', 'WifiPointsController@index');
+    $app->post('wifi-points', 'WifiPointsController@store');
+    $app->get('wifi-points/{id}', 'WifiPointsController@show');
+    $app->put('wifi-points/{id}', 'WifiPointsController@update');
+    $app->patch('wifi-points/{id}', 'WifiPointsController@update');
+    $app->delete('wifi-points/{id}', 'WifiPointsController@destroy');
+
+    $app->get('places', 'PlacesController@index');
+    $app->post('places', 'PlacesController@store');
+    $app->get('places/{id}', 'PlacesController@show');
+    $app->put('places/{id}', 'PlacesController@update');
+    $app->patch('places/{id}', 'PlacesController@update');
+    $app->delete('places/{id}', 'PlacesController@destroy');
+});
 
 $app->get('/crud-wifi-points', 'View\WifiPointsController@index');
 $app->get('/', 'View\WifiPointsController@manageVue');

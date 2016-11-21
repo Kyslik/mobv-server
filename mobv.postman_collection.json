@@ -1,0 +1,99 @@
+{
+	"variables": [],
+	"info": {
+		"name": "mobv",
+		"_postman_id": "661b2302-a5fa-9d2d-c31a-36045c72da31",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://mobv.dev/api/v1/places",
+			"request": {
+				"url": "http://mobv.dev/api/v1/places",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n    \"block\": \"D\",\n    \"level\": 1\n  }"
+				},
+				"description": "get all places"
+			},
+			"response": []
+		},
+		{
+			"name": "http://mobv.dev/api/v1/places/1",
+			"request": {
+				"url": "http://mobv.dev/api/v1/places/1",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": "get place by id"
+			},
+			"response": []
+		},
+		{
+			"name": "http://mobv.dev/api/v1/places",
+			"request": {
+				"url": "http://mobv.dev/api/v1/places",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n    \"block\": \"D\",\n    \"level\": 1\n  }"
+				},
+				"description": "create place"
+			},
+			"response": []
+		},
+		{
+			"name": "http://mobv.dev/api/v1/places/1",
+			"request": {
+				"url": "http://mobv.dev/api/v1/places/1",
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"block\": \"D\",\n\t\"level\": 3\n}"
+				},
+				"description": "patch|put place"
+			},
+			"response": []
+		},
+		{
+			"name": "http://mobv.dev/api/v1/places/1",
+			"request": {
+				"url": "http://mobv.dev/api/v1/places/1",
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": "delete place"
+			},
+			"response": []
+		}
+	]
+}
