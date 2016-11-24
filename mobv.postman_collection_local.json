@@ -1,8 +1,8 @@
 {
 	"variables": [],
 	"info": {
-		"name": "mobv collection remote",
-		"_postman_id": "c7b10588-21db-375f-8745-570368525965",
+		"name": "mobv collection",
+		"_postman_id": "23654c6c-d918-b7a5-7aef-b0aec85e8b89",
 		"description": "Collection of mobv-server API.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -10,7 +10,7 @@
 		{
 			"name": "locations get all",
 			"request": {
-				"url": "http://mobv-server.visi.sk/api/v1/locations",
+				"url": "http://mobv.dev/api/v1/locations",
 				"method": "GET",
 				"header": [
 					{
@@ -30,7 +30,7 @@
 		{
 			"name": "locations get by id",
 			"request": {
-				"url": "http://mobv-server.visi.sk/api/v1/locations/1",
+				"url": "http://mobv.dev/api/v1/locations/1",
 				"method": "GET",
 				"header": [
 					{
@@ -50,7 +50,7 @@
 		{
 			"name": "wifi-points get all",
 			"request": {
-				"url": "http://mobv-server.visi.sk/api/v1/locations/1/access-points",
+				"url": "http://mobv.dev/api/v1/locations/1/access-points",
 				"method": "GET",
 				"header": [
 					{
@@ -70,7 +70,7 @@
 		{
 			"name": "wifi-points get by id",
 			"request": {
-				"url": "http://mobv-server.visi.sk/api/v1/locations/1/access-points",
+				"url": "http://mobv.dev/api/v1/locations/1/access-points",
 				"method": "GET",
 				"header": [
 					{
@@ -90,7 +90,7 @@
 		{
 			"name": "access-points create (array)",
 			"request": {
-				"url": "http://mobv-server.visi.sk/api/v1/locations/1/access-points",
+				"url": "http://mobv.dev/api/v1/locations/1/access-points",
 				"method": "POST",
 				"header": [
 					{
@@ -110,7 +110,7 @@
 		{
 			"name": "access-points create (single)",
 			"request": {
-				"url": "http://mobv-server.visi.sk/v1/locations/1/access-points",
+				"url": "http://mobv.dev/api/v1/locations/1/access-points",
 				"method": "POST",
 				"header": [
 					{
