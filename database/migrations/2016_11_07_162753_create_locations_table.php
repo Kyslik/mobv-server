@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreatePlacesTable extends Migration
+class CreateLocationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreatePlacesTable extends Migration
      */
     public function up()
     {
-        Schema::create('places', function (Blueprint $table) {
+        Schema::create('locations', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->char('block', 1);
             $table->tinyInteger('level');
-            $table->timestamps();
+            $table->unique(array('block', 'level'));
         });
     }
 
@@ -29,6 +29,6 @@ class CreatePlacesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('places');
+        Schema::drop('locations');
     }
 }
