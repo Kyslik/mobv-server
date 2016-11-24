@@ -1,9 +1,5 @@
 <?php
 
-$app->get('/', function () {
-    return redirect()->to('/doc');
-});
-
 $app->group(['prefix' => 'api/v1'], function (Laravel\Lumen\Application $app) {
     $app->group(['prefix' => 'locations'], function (Laravel\Lumen\Application $app) {
         $app->get('/', 'LocationController@index');

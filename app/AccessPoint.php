@@ -48,7 +48,8 @@ class AccessPoint extends Model
         'frequency' => 'integer'
     ];
 
-    public function scopeLocationId($query, $location_id) {
+    public function scopeLocationId($query, $location_id)
+    {
         return $query->where('location_id', $location_id);
     }
 

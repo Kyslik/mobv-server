@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 class LocationMiddleware
 {
-
     private $location;
 
     public function __construct(Location $location)
