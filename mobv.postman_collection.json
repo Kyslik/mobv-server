@@ -8,9 +8,9 @@
 	},
 	"item": [
 		{
-			"name": "places get all",
+			"name": "locations get all",
 			"request": {
-				"url": "http://mobv.dev/api/v1/places",
+				"url": "http://mobv.dev/api/v1/locations",
 				"method": "GET",
 				"header": [
 					{
@@ -28,44 +28,10 @@
 			"response": []
 		},
 		{
-			"name": "places create",
+			"name": "locations get by id",
 			"request": {
-				"url": "http://mobv.dev/api/v1/places",
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "  {\n    \"block\": \"D\",\n    \"level\": 1\n  }"
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "places get by id",
-			"request": {
-				"url": "http://mobv.dev/api/v1/places/1",
+				"url": "http://mobv.dev/api/v1/locations/1",
 				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": []
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "places patch | put by id",
-			"request": {
-				"url": "http://mobv.dev/api/v1/places/1",
-				"method": "PATCH",
 				"header": [
 					{
 						"key": "Content-Type",
@@ -74,42 +40,8 @@
 					}
 				],
 				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"block\": \"D\",\n\t\"level\": 3\n}"
-				},
-				"description": "Explicit behaviour! What you send you get back."
-			},
-			"response": []
-		},
-		{
-			"name": "places delete",
-			"request": {
-				"url": "http://mobv.dev/api/v1/places/1",
-				"method": "DELETE",
-				"header": [],
-				"body": {
 					"mode": "formdata",
 					"formdata": []
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "places sync many wifi-points",
-			"request": {
-				"url": "http://mobv.dev/api/v1/places/1/sync",
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "[6, 5, 11]"
 				},
 				"description": ""
 			},
@@ -118,7 +50,7 @@
 		{
 			"name": "wifi-points get all",
 			"request": {
-				"url": "http://mobv.dev/api/v1/wifi-points",
+				"url": "http://mobv.dev/api/v1/locations/1/access-points",
 				"method": "GET",
 				"header": [
 					{
@@ -136,44 +68,10 @@
 			"response": []
 		},
 		{
-			"name": "wifi-points create",
-			"request": {
-				"url": "http://mobv.dev/api/v1/wifi-points",
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "  {\n    \"ssid\": \"Jozkova Wifka\",\n    \"bssid\": \"0e:40:08:99:3f:22\",\n    \"capabilities\": \"[WPA-EAP...]\",\n    \"level\": -10,\n    \"frequency\": 5000,\n    \"timestamp\": \"12319239148128\"\n  }"
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
 			"name": "wifi-points get by id",
 			"request": {
-				"url": "http://mobv.dev/api/v1/wifi-points/1",
+				"url": "http://mobv.dev/api/v1/locations/1/access-points",
 				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": []
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "wifi-points patch | put by id",
-			"request": {
-				"url": "http://mobv.dev/api/v1/wifi-points/1",
-				"method": "PATCH",
 				"header": [
 					{
 						"key": "Content-Type",
@@ -183,44 +81,16 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"ssid\": \"Dezkova Wifka\",\n    \"bssid\": \"00:40:08:99:3f:22\",\n    \"capabilities\": \"\",\n    \"level\": -18,\n    \"frequency\": 4500,\n    \"timestamp\": \"5836542254528\"\n}"
-				},
-				"description": "Explicit behaviour! What you send you get back."
-			},
-			"response": []
-		},
-		{
-			"name": "wifi-points delete",
-			"request": {
-				"url": "http://mobv.dev/api/v1/wifi-points/1",
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": []
+					"raw": "  {\n    \"block\": \"D\",\n    \"level\": 1\n  }"
 				},
 				"description": ""
 			},
 			"response": []
 		},
 		{
-			"name": "places-wifi-points get all for certain place",
+			"name": "access-points create (array)",
 			"request": {
-				"url": "http://mobv.dev/api/v1/places/1/wifi-points",
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": []
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "places-wifi-points create",
-			"request": {
-				"url": "http://mobv.dev/api/v1/places/1/wifi-points",
+				"url": "http://mobv.dev/api/v1/locations/1/access-points",
 				"method": "POST",
 				"header": [
 					{
@@ -231,31 +101,17 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "  {\n    \"ssid\": \"Jozkova Wifka 222\",\n    \"bssid\": \"0a:40:08:99:3f:22\",\n    \"capabilities\": \"[WPA-EAP...]\",\n    \"level\": -11,\n    \"frequency\": 421,\n    \"timestamp\": \"12319239148128\"\n  }"
+					"raw": "[\n\t{\n\t\t\"ssid\": \"Jozkova Wifka\",\n\t\t\"bssid\": \"0e:40:08:99:3f:22\",\n\t\t\"capabilities\": \"[WPA-EAP...]\",\n\t\t\"level\": -50,\n\t\t\"frequency\": 4521,\n\t\t\"timestamp\": \"12319239148128\"\n\t},\n\t{\n\t\t\"ssid\": \"Ferkova Wifka\",\n\t\t\"bssid\": \"0d:40:08:99:3f:55\",\n\t\t\"capabilities\": \"[NONE]\",\n\t\t\"level\": -11,\n\t\t\"frequency\": 2536,\n\t\t\"timestamp\": \"56321524525663\"\n\t}\n]"
 				},
-				"description": ""
+				"description": "accepts json array of access-points"
 			},
 			"response": []
 		},
 		{
-			"name": "places-wifi-points get by id",
+			"name": "access-points create (single)",
 			"request": {
-				"url": "http://mobv.dev/api/v1/places/1/wifi-points/7",
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": []
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "places-wifi-points patch | put by id",
-			"request": {
-				"url": "http://mobv.dev/api/v1/places/1/wifi-points/7",
-				"method": "PATCH",
+				"url": "http://mobv.dev/api/v1/locations/1/access-points",
+				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
@@ -265,27 +121,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "  {\n    \"ssid\": \"Jozkova Wifka123\",\n    \"bssid\": \"2a:40:08:99:3f:12\",\n    \"capabilities\": \"[WPA-EAP...]\",\n    \"level\": -11,\n    \"frequency\": 421,\n    \"timestamp\": \"1231233123123128\"\n  }"
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "places-wifi-points delete",
-			"request": {
-				"url": "http://mobv.dev/api/v1/places/1/wifi-points/7",
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "  {\n    \"ssid\": \"Jozkova Wifka123\",\n    \"bssid\": \"2a:40:08:99:3f:12\",\n    \"capabilities\": \"[WPA-EAP...]\",\n    \"level\": -11,\n    \"frequency\": 421,\n    \"timestamp\": \"1231233123123128\"\n  }"
+					"raw": "  {\n    \"ssid\": \"Ferkova Wifka\",\n    \"bssid\": \"30:50:78:99:5d:22\",\n    \"capabilities\": \"[WPA-EAP...]\",\n    \"level\": -75,\n    \"frequency\": 4523,\n    \"timestamp\": \"12319239148128\"\n  }"
 				},
 				"description": ""
 			},
