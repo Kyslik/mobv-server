@@ -126,6 +126,26 @@
 				"description": ""
 			},
 			"response": []
+		},
+		{
+			"name": "access-points delete by id",
+			"request": {
+				"url": "http://mobv-server.visi.sk/v1/locations/1/access-points/1",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
 		}
 	]
 }

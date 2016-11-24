@@ -213,6 +213,26 @@ class AccessPointsController extends Controller
         return response()->json(['created' => $created], 201);
     }
 
+    /**
+     * @api {delete} /locations/:location_id/access-points/:id Delete a AccessPoint
+     * @apiVersion 0.0.2
+     * @apiName DeleteAccessPoint
+     * @apiGroup AccessPoints
+     * @apiPermission none
+     *
+     *
+     * @apiSuccessExample {json} Success-Response:
+     *      HTTP/1.1 204 No content
+     *
+     * @apiUse AccessPointNotFoundError
+     */
+    public function destroy($location_id, $id)
+    {
+        $access_point = $this->access_point->locationId($location_id)->findOrFail($id);
+        $access_point->delete();
+        return response()->json([], 204);
+    }
+
     private function setJson($json)
     {
         $this->validateJson($json);
