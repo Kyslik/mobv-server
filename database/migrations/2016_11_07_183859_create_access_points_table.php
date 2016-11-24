@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateWifiPointsTable extends Migration
+class CreateAccessPointsTable extends Migration
 {
 
     /**
@@ -14,10 +14,11 @@ class CreateWifiPointsTable extends Migration
      */
     public function up()
     {
-        Schema::create('wifi_points', function (Blueprint $table) {
+        Schema::create('access_points', function (Blueprint $table) {
             // https://developer.android.com/reference/android/net/wifi/ScanResult.html
             $table->engine = 'InnoDB';
             $table->increments('id');
+            $table->integer('location_id')->unsigned();
             $table->string('bssid', 17);
             $table->string('ssid')->nullable()->default(null);
             $table->text('capabilities')->nullable()->default(null);
@@ -25,6 +26,8 @@ class CreateWifiPointsTable extends Migration
             $table->integer('frequency')->nullable()->default(null);
             $table->string('timestamp', 64)->nullable()->default(null);
             $table->timestamps();
+
+            $table->foreign('location_id')->references('id')->on('locations')->onDelete('restrict');
         });
     }
 
@@ -35,6 +38,6 @@ class CreateWifiPointsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('wifi_points');
+        Schema::drop('access_points');
     }
 }

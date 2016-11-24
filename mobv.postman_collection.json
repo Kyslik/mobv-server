@@ -96,6 +96,26 @@
 			"response": []
 		},
 		{
+			"name": "places sync many wifi-points",
+			"request": {
+				"url": "http://mobv.dev/api/v1/places/1/sync",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[6, 5, 11]"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
 			"name": "wifi-points get all",
 			"request": {
 				"url": "http://mobv.dev/api/v1/wifi-points",
