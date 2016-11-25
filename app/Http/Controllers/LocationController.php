@@ -31,12 +31,12 @@ class LocationController extends Controller
      * @apiErrorExample {json} Error-Response:
      *     HTTP/1.1 404 Not Found
      *     {
-     *       "error": "No query results for model [App\\Location] :id"
+     *       "error": "Location not found."
      *     }
      */
 
     /**
-     * @api {get} /location List data of a Locations
+     * @api {get} /locations List data of a Locations
      * @apiVersion 0.0.2
      * @apiName GetLocations
      * @apiGroup Locations
@@ -95,10 +95,6 @@ class LocationController extends Controller
      */
     public function show($id)
     {
-        try {
-            return response()->json($this->location->with('accessPoints')->findOrFail($id));
-        } catch (ModelNotFoundException $e) {
-            return response()->json(['error' => $e->getMessage()], 404);
-        }
+        return response()->json($this->location->with('accessPoints')->findOrFail($id));
     }
 }

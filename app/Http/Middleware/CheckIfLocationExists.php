@@ -6,7 +6,7 @@ use App\Location;
 use Closure;
 use Illuminate\Http\Request;
 
-class LocationMiddleware
+class CheckIfLocationExists
 {
     private $location;
 

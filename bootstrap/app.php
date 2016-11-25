@@ -64,7 +64,7 @@ $app->singleton(
 // ]);
 
  $app->routeMiddleware([
-     'location' => App\Http\Middleware\LocationMiddleware::class,
+     'location-exists' => App\Http\Middleware\CheckIfLocationExists::class,
  ]);
 
 //$app->routeMiddleware([
