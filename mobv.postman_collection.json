@@ -101,7 +101,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "[\n\t{\n\t\t\"ssid\": \"Jozkova Wifka\",\n\t\t\"bssid\": \"0e:40:08:99:3f:22\",\n\t\t\"capabilities\": \"[WPA-EAP...]\",\n\t\t\"level\": -50,\n\t\t\"frequency\": 4521,\n\t\t\"timestamp\": \"12319239148128\"\n\t},\n\t{\n\t\t\"ssid\": \"Ferkova Wifka\",\n\t\t\"bssid\": \"0d:40:08:99:3f:55\",\n\t\t\"capabilities\": \"[NONE]\",\n\t\t\"level\": -11,\n\t\t\"frequency\": 2536,\n\t\t\"timestamp\": \"56321524525663\"\n\t}\n]"
+					"raw": "[\n\t{\n\t\t\"device_id\": 1,\n\t\t\"ssid\": \"Jozkova Wifka\",\n\t\t\"bssid\": \"0e:40:08:99:3f:22\",\n\t\t\"capabilities\": \"[WPA-EAP...]\",\n\t\t\"level\": -50,\n\t\t\"frequency\": 4521,\n\t\t\"timestamp\": \"12319239148128\"\n\t},\n\t{\n\t\t\"device_id\": 1,\n\t\t\"ssid\": \"Ferkova Wifka\",\n\t\t\"bssid\": \"0d:40:08:99:3f:55\",\n\t\t\"capabilities\": \"[NONE]\",\n\t\t\"level\": -11,\n\t\t\"frequency\": 2536,\n\t\t\"timestamp\": \"56321524525663\"\n\t}\n]"
 				},
 				"description": "accepts json array of access-points"
 			},
@@ -121,7 +121,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "  {\n    \"ssid\": \"Ferkova Wifka\",\n    \"bssid\": \"30:50:78:99:5d:22\",\n    \"capabilities\": \"[WPA-EAP...]\",\n    \"level\": -75,\n    \"frequency\": 4523,\n    \"timestamp\": \"12319239148128\"\n  }"
+					"raw": "  {\n  \t\"device_id\": 1,\n    \"ssid\": \"Ferkova Wifka\",\n    \"bssid\": \"30:50:78:99:5d:22\",\n    \"capabilities\": \"[WPA-EAP...]\",\n    \"level\": -75,\n    \"frequency\": 4523,\n    \"timestamp\": \"12319239148128\"\n  }"
 				},
 				"description": ""
 			},
