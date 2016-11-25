@@ -8,7 +8,7 @@ class LocationsSeeder extends Seeder
      * B -1...7
      * C -1...8
      * D -1...7
-     * E -1...7
+     * E -2...7
      * T (maybe 0) or (-1...1)
     */
     public function run()
@@ -16,10 +16,16 @@ class LocationsSeeder extends Seeder
         \DB::table('locations')->delete();
 
         $tall_blocks = ['A', 'C'];
-        $short_blocks = ['B', 'D', 'E'];
+        $short_blocks = ['B', 'D'];
         $tiny_blocks = ['T'];
 
+
         $data = [];
+
+        for ($i = -2; $i <= 7; $i++) {
+            $data[] = ['block' => 'E', 'level' => $i];
+        }
+        
         foreach ($tall_blocks as $block) {
             for ($i = -1; $i <= 8; $i++) {
                 $data[] = ['block' => $block, 'level' => $i];
