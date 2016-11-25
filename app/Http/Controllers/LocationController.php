@@ -95,7 +95,11 @@ class LocationController extends Controller
      */
     public function show($id)
     {
-        return response()->json($this->location->with('accessPoints')->findOrFail($id));
+        try {
+            return response()->json($this->location->with('accessPoints')->findOrFail($id));
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['error' => $e->getMessage()], 404);
+        }
     }
 
     public function find()

@@ -15,7 +15,7 @@ class CheckIfLocationExists
         $this->location = $location;
     }
 
-    public function handle(Request $request, Closure $next)
+    public function handle($request, Closure $next)
     {
         if (isset($request->route()[2]['location_id'])) {
             $this->location->findOrFail($request->route()[2]['location_id']);
