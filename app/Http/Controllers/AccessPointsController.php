@@ -10,6 +10,7 @@ class AccessPointsController extends Controller
 {
     protected $rules = [
         'location_id' => 'required|exists:locations,id',
+        'device_id' => 'required',
         'bssid' => 'required|size:17',
     ];
 
@@ -39,6 +40,7 @@ class AccessPointsController extends Controller
     /**
      * @apiDefine AccessPointApiParams
      * @apiParam {String}   bssid           MAC address.
+     * @apiParam {integer}  device_id       Unique device id.
      * @apiParam {String}   [ssid]          Name of Wi-Fi.
      * @apiParam {String}   [capabilities]  Capabilities of WiFi.
      * @apiParam {Integer}  [level]         Level.
@@ -67,7 +69,8 @@ class AccessPointsController extends Controller
      *      [
      *          {
      *              "id": 1,
-     *              "location_id": :location_id
+     *              "location_id": :location_id,
+     *              "device_id": 1,
      *              "bssid": "0e:41:08:99:3f:22",
      *              "ssid": "Eduroam",
      *              "capabilities": "[WPA-EAP]",
@@ -80,6 +83,7 @@ class AccessPointsController extends Controller
      *          {
      *              "id": 2,
      *              "location_id": :location_id
+     *              "device_id": 1,
      *              "bssid": "0e:41:08:32:6f:22",
      *              "ssid": "Eduroam EXTENDED",
      *              "capabilities": "[WEP]",
@@ -111,6 +115,7 @@ class AccessPointsController extends Controller
      * curl -i http://localhost/api/v1/location/:location_id/access-points/:id
      * @apiSuccess {Integer}  id
      * @apiSuccess {Integer}  location_id       Location id.
+     * @apiSuccess {Integer}  device_id         Device id.
      * @apiSuccess {String}   bssid             MAC address.
      * @apiSuccess {String}   ssid              Name of Wi-Fi.
      * @apiSuccess {String}   capabilities      Capabilities of WiFi.
@@ -137,6 +142,7 @@ class AccessPointsController extends Controller
      *
      * @apiParamExample {json} Request-Example (single):
      *   {
+     *      "device_id": 1,
      *      "ssid": "Neo WiFi",
      *      "bssid": "11:40:05:A9:3f:28",
      *      "capabilities": "[BEND SPOON]",
@@ -148,6 +154,7 @@ class AccessPointsController extends Controller
      * @apiParamExample {json} Request-Example (array):
      *  [
      *      {
+     *          "device_id": 1,
      *          "ssid": "Morpheus WiFi",
      *          "bssid": "0e:40:08:99:3f:22",
      *          "capabilities": "[WEAR-GLASSES]",
@@ -156,6 +163,7 @@ class AccessPointsController extends Controller
      *          "timestamp": "12319239148128"
      *      },
      *      {
+     *          "device_id": 1,
      *          "ssid": "Trinity WiFi",
      *          "bssid": "0d:40:08:99:3f:55",
      *          "capabilities": "[KICK-ASS]",
@@ -205,8 +213,12 @@ class AccessPointsController extends Controller
 
         $created = [];
         foreach ($this->json as $access_point) {
-            $ap = $this->access_point->create(array_merge($access_point,
-                ['location_id' => $this->location_id]));
+            $ap = $this->access_point->findByBssidAndDeviceId($access_point['device_id'], $access_point['bssid']);
+            if (is_null($ap)) {
+                $ap = $this->access_point->create(array_merge($access_point,
+                    ['location_id' => $this->location_id]));
+            }
+
             array_push($created, $ap->id);
         }
 
@@ -267,7 +279,8 @@ class AccessPointsController extends Controller
     {
         $messages = [
             'bssid.size' => 'For [' . $key . ']: Bssid must be exactly 17 characters long.',
-            'bssid.required' => 'For [' . $key . ']: Bssid is required field.'
+            'bssid.required' => 'For [' . $key . ']: Bssid is required field.',
+            'device_id.required' => 'For [' . $key . ']: Device identifier is required field.',
         ];
         return $messages;
     }

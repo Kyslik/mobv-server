@@ -97,4 +97,8 @@ class LocationController extends Controller
     {
         return response()->json($this->location->with('accessPoints')->findOrFail($id));
     }
+
+    public function find()
+    {
+    }
 }

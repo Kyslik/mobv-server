@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property integer $id
  * @property integer $location_id
+ * @property integer $device_id
  * @property string $bssid
  * @property string $ssid
  * @property string $capabilities
@@ -20,6 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Location $location
  * @method static \Illuminate\Database\Query\Builder|\App\AccessPoint whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\AccessPoint whereLocationId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\AccessPoint whereDeviceId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\AccessPoint whereBssid($value)
  * @method static \Illuminate\Database\Query\Builder|\App\AccessPoint whereSsid($value)
  * @method static \Illuminate\Database\Query\Builder|\App\AccessPoint whereCapabilities($value)
@@ -29,12 +31,15 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\AccessPoint whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\AccessPoint whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\AccessPoint locationId($location_id)
+ * @method static \Illuminate\Database\Query\Builder|\App\AccessPoint deviceId($device_id)
+ * @method static \Illuminate\Database\Query\Builder|\App\AccessPoint bssid($bssid)
  * @mixin \Eloquent
  */
 class AccessPoint extends Model
 {
     protected $fillable = [
         'location_id',
+        'device_id',
         'bssid',
         'ssid',
         'capabilities',
@@ -51,6 +56,18 @@ class AccessPoint extends Model
     public function scopeLocationId($query, $location_id)
     {
         return $query->where('location_id', $location_id);
+    }
+
+    public function scopeDeviceId($query, $device_id) {
+        return $query->where('device_id', $device_id);
+    }
+
+    public function scopeBssid($query, $bssid) {
+        return $query->where('bssid', $bssid);
+    }
+
+    public function findByBssidAndDeviceId($device_id, $bssid) {
+        return $this->select(['id'])->deviceId($device_id)->bssid($bssid)->first();
     }
 
     public function location()
