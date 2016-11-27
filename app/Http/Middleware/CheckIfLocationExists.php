@@ -4,7 +4,6 @@ namespace App\Http\Middleware;
 
 use App\Location;
 use Closure;
-use Illuminate\Http\Request;
 
 class CheckIfLocationExists
 {

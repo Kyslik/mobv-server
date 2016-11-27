@@ -136,7 +136,7 @@ class AccessPointsController extends Controller
      * @apiName PostAccessPoint
      * @apiGroup AccessPoints
      *
-     * @apiDescription Please see <a href="https://developer.android.com/reference/android/net/wifi/ScanResult.html">ScanResult Android MAN</a>
+     * @apiDescription Please see <a href="https://developer.android.com/reference/android/net/wifi/ScanResult.html">ScanResult Android MAN</a>, if AP for certain device_id exists it still returns created array.
      *
      * @apiUse AccessPointApiParams
      *
