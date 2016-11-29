@@ -170,7 +170,7 @@
 		{
 			"name": "access-points delete by id",
 			"request": {
-				"url": "http://mobv-server.visi.sk/v1/locations/1/access-points/1",
+				"url": "http://mobv-server.visi.sk/api/v1/locations/1/access-points/1",
 				"method": "DELETE",
 				"header": [
 					{
