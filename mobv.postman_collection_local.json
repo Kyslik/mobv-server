@@ -48,7 +48,7 @@
 			"response": []
 		},
 		{
-			"name": "wifi-points get all",
+			"name": "access-points get all",
 			"request": {
 				"url": "http://mobv.dev/api/v1/locations/1/access-points",
 				"method": "GET",
@@ -68,7 +68,7 @@
 			"response": []
 		},
 		{
-			"name": "wifi-points get by id",
+			"name": "access-points get by id",
 			"request": {
 				"url": "http://mobv.dev/api/v1/locations/1/access-points",
 				"method": "GET",
@@ -122,6 +122,46 @@
 				"body": {
 					"mode": "raw",
 					"raw": "  {\n  \t\"device_id\": 1,\n    \"ssid\": \"Ferkova Wifka\",\n    \"bssid\": \"30:50:78:99:5d:22\",\n    \"capabilities\": \"[WPA-EAP...]\",\n    \"level\": -75,\n    \"frequency\": 4523,\n    \"timestamp\": \"12319239148128\"\n  }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "access-points find (array)",
+			"request": {
+				"url": "http://mobv.dev/api/v1/locations/find",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\"0e:40:08:99:3f:22\",\"0d:40:08:99:3f:55\"]"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "access-points find (single)",
+			"request": {
+				"url": "http://mobv.dev/api/v1/locations/find",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\"0d:40:08:99:3f:55\""
 				},
 				"description": ""
 			},
