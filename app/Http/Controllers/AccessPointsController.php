@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\AccessPoint;
-use App\Exceptions\InvalidJsonException;
 use Illuminate\Http\Request;
 
 class AccessPointsController extends Controller
@@ -195,7 +194,7 @@ class AccessPointsController extends Controller
      * @apiError (Error 415) {String} error  Unsupported Media Type.
      * @apiError (Error 422) {String} bssid  Bssid field is required.
      * @apiError (Error 422) {String} bssid  Bssid must be exactly 17 characters long.
-     * @apiError (Error 422) {String} error  Invalid JSON.
+     * @apiError (Error 422) {String} error  Invalid Json or sent data are empty "[]".
      *
      * @apiErrorExample {json} Error-response:
      *     HTTP/1.1 422 Unprocessable Entity
@@ -205,15 +204,12 @@ class AccessPointsController extends Controller
      */
     public function store(Request $request, $location_id)
     {
-        if (!$request->isJson()) {
-            return response()->json(['error' => 'Unsupported Media Type'], 415);
-        }
         $this->setJson($request->json()->all());
         $this->location($location_id)->validateStore($request, $this->rules);
 
         $created = [];
         foreach ($this->json as $access_point) {
-            $ap = $this->access_point->findByBssidAndDeviceId($access_point['device_id'], $access_point['bssid']);
+            $ap = $this->access_point->findByBssidAndDeviceId($access_point['bssid'], $access_point['device_id']);
             if (is_null($ap)) {
                 $ap = $this->access_point->create(array_merge($access_point,
                     ['location_id' => $this->location_id]));
@@ -225,42 +221,15 @@ class AccessPointsController extends Controller
         return response()->json(['created' => $created], 201);
     }
 
-    /**
-     * @api {delete} /locations/:location_id/access-points/:id Delete a AccessPoint
-     * @apiVersion 0.0.2
-     * @apiName DeleteAccessPoint
-     * @apiGroup AccessPoints
-     * @apiPermission none
-     *
-     *
-     * @apiSuccessExample {json} Success-Response:
-     *      HTTP/1.1 204 No content
-     *
-     * @apiUse AccessPointNotFoundError
-     */
-    public function destroy($location_id, $id)
-    {
-        $access_point = $this->access_point->locationId($location_id)->findOrFail($id);
-        $access_point->delete();
-        return response()->json([], 204);
-    }
-
     private function setJson($json)
     {
-        $this->validateJson($json);
+        validateJson($json);
 
         if (count($json) === count($json, COUNT_RECURSIVE)) {
             $json = [$json];
         }
 
         $this->json = $json;
-    }
-
-    private function validateJson($json)
-    {
-        if (empty($json)) {
-            throw new InvalidJsonException();
-        }
     }
 
     private function validateStore(Request $request, array $rules, array $messages = [], array $customAttributes = [])
@@ -289,5 +258,25 @@ class AccessPointsController extends Controller
     {
         $this->location_id = $location_id;
         return $this;
+    }
+
+    /**
+     * @api {delete} /locations/:location_id/access-points/:id Delete a AccessPoint
+     * @apiVersion 0.0.2
+     * @apiName DeleteAccessPoint
+     * @apiGroup AccessPoints
+     * @apiPermission none
+     *
+     *
+     * @apiSuccessExample {json} Success-Response:
+     *      HTTP/1.1 204 No content
+     *
+     * @apiUse AccessPointNotFoundError
+     */
+    public function destroy($location_id, $id)
+    {
+        $access_point = $this->access_point->locationId($location_id)->findOrFail($id);
+        $access_point->delete();
+        return response()->json([], 204);
     }
 }

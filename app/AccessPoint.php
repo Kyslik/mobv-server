@@ -58,23 +58,24 @@ class AccessPoint extends Model
         return $query->where('location_id', $location_id);
     }
 
-    public function scopeDeviceId($query, $device_id) {
+    public function scopeDeviceId($query, $device_id)
+    {
         return $query->where('device_id', $device_id);
     }
 
-    public function scopeBssid($query, $bssid) {
+    public function scopeBssid($query, $bssid)
+    {
         return $query->where('bssid', $bssid);
     }
 
-    public function findByBssidAndDeviceId($device_id, $bssid) {
+    public function findByBssidAndDeviceId($bssid, $device_id)
+    {
         return $this->select(['id'])->deviceId($device_id)->bssid($bssid)->first();
     }
 
-    public function scopeFindByBssids($query, $bssids = array())
+    public function findByBssids($bssids = [])
     {
-        return $query->select(['id', 'location_id', 'bssid'])->with([
-            'location'
-        ])->whereIn('bssid', $bssids);
+        return $this->select(['id', 'location_id', 'bssid'])->with(['location'])->whereIn('bssid', $bssids)->get();
     }
 
     public function location()
