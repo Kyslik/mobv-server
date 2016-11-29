@@ -112,7 +112,7 @@ class AccessPointsController extends Controller
      *
      *
      * @apiExample Example usage:
-     * curl -i http://localhost/api/v1/location/:location_id/access-points/:id
+     * curl -i http://localhost/api/v1/locations/:location_id/access-points/:id
      * @apiSuccess {Integer}  id
      * @apiSuccess {Integer}  location_id       Location id.
      * @apiSuccess {Integer}  device_id         Device id.
@@ -131,7 +131,7 @@ class AccessPointsController extends Controller
     }
 
     /**
-     * @api {post} /location/:location_id/access-points    Create new access-point(s).
+     * @api {post} /locations/:location_id/access-points    Create new access-point(s).
      * @apiVersion 0.0.2
      * @apiName PostAccessPoint
      * @apiGroup AccessPoints
