@@ -70,6 +70,13 @@ class AccessPoint extends Model
         return $this->select(['id'])->deviceId($device_id)->bssid($bssid)->first();
     }
 
+    public function scopeFindByBssids($query, $bssids = array())
+    {
+        return $query->select(['id', 'location_id', 'bssid'])->with([
+            'location'
+        ])->whereIn('bssid', $bssids);
+    }
+
     public function location()
     {
         return $this->belongsTo(Location::class);

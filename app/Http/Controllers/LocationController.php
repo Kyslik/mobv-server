@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\AccessPoint;
 use App\Location;
+use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
 
 class LocationController extends Controller
 {
+
     protected $rules_store = [
         'block' => 'required',
         'level' => 'required',
@@ -18,6 +22,8 @@ class LocationController extends Controller
     ];
 
     private $location;
+
+    private $limit = 5;
 
     public function __construct(Location $location)
     {
@@ -102,7 +108,49 @@ class LocationController extends Controller
         }
     }
 
-    public function find()
+    public function find(Request $request)
     {
+        if (!$request->isJson()) {
+            return response()->json(['error' => 'Unsupported Media Type'], 415);
+        }
+
+        try {
+            $access_points = AccessPoint::findByBssids($request->input('bssids'))
+                ->get();
+
+            $sorted_by_access_points_count = $access_points->groupBy('location.id')->sortByDesc(function ($accessPoints) {
+                return $accessPoints->count();
+            });
+
+            $suggestions_temp = [];
+            foreach ($sorted_by_access_points_count as $id => $location) {
+                $suggestions_temp[$id] = $location->count();
+            }
+            $location_ids = array_keys($suggestions_temp);
+            $locations = Location::with([
+                'accessPoints' => function($query){
+                    $query->select(['id', 'ssid', 'bssid', 'location_id']);
+                }
+            ])
+                ->whereIn('id', $location_ids)->limit($this->limit)->get();
+
+            $suggestions = [];
+            foreach ($locations as $location) {
+                $suggestions[] = [
+                    'location' => $location,
+                    'match_count' => $suggestions_temp[$location->id]
+                ];
+            }
+            $suggestions = collect($suggestions)
+                ->sortByDesc(function($suggestion){
+                    return $suggestion['match_count'];
+                })->values();
+
+            return response()->json(
+                ['suggestions' => $suggestions
+                ]);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 404);
+        }
     }
 }
