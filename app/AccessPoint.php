@@ -53,6 +53,8 @@ class AccessPoint extends Model
         'frequency' => 'integer'
     ];
 
+    protected $touches = ['location'];
+
     public function scopeLocationId($query, $location_id)
     {
         return $query->where('location_id', $location_id);
