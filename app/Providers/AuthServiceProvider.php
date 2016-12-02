@@ -3,11 +3,11 @@
 namespace App\Providers;
 
 use App\User;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
 {
+
     /**
      * Register any application services.
      *
@@ -17,6 +17,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         //
     }
+
 
     /**
      * Boot the authentication services for the application.

@@ -8,10 +8,13 @@ use Illuminate\Http\Request;
 
 class LocationController extends Controller
 {
+
     private $location;
+
     private $json;
 
     private $limit = 5;
+
 
     public function __construct(Location $location)
     {
@@ -20,7 +23,7 @@ class LocationController extends Controller
     /**
      * @apiDefine LocationNotFoundError
      *
-     * @apiError LocationNotFound The id of the Place was not found.
+     * @apiError  LocationNotFound The id of the Place was not found.
      *
      * @apiErrorExample {json} Error-Response:
      *     HTTP/1.1 404 Not Found
@@ -30,15 +33,15 @@ class LocationController extends Controller
      */
 
     /**
-     * @api {get} /locations List data of a Locations
-     * @apiVersion 0.0.2
-     * @apiName GetLocations
-     * @apiGroup Locations
-     * @apiPermission none
+     * @api            {get} /locations List data of a Locations
+     * @apiVersion     0.0.2
+     * @apiName        GetLocations
+     * @apiGroup       Locations
+     * @apiPermission  none
      *
      * @apiDescription Get all Locations
      *
-     * @apiExample Example usage:
+     * @apiExample     Example usage:
      * curl -i http://localhost/api/v1/locations
      *
      * @apiSuccess {Object[]} places    List of locations.
@@ -67,17 +70,18 @@ class LocationController extends Controller
         return response()->json($this->location->all());
     }
 
+
     /**
-     * @api {get} /locations/:id Read data of a Location
-     * @apiVersion 0.0.2
-     * @apiName GetLocation
-     * @apiGroup Locations
-     * @apiPermission none
+     * @api            {get} /locations/:id Read data of a Location
+     * @apiVersion     0.0.2
+     * @apiName        GetLocation
+     * @apiGroup       Locations
+     * @apiPermission  none
      *
      * @apiDescription Get certain Location by ID
      *
      *
-     * @apiExample Example usage:
+     * @apiExample     Example usage:
      * curl -i http://localhost/api/v1/locations/1
      *
      * @apiSuccess {String}   block         Block (A-E;T).
@@ -85,19 +89,20 @@ class LocationController extends Controller
      * @apiSuccess {Date}     created_at    Creation Date.
      * @apiSuccess {Date}     updated_at    Latest update Date.
      *
-     * @apiUse LocationNotFoundError
+     * @apiUse         LocationNotFoundError
      */
     public function show($id)
     {
         return response()->json($this->location->with('accessPoints')->findOrFail($id));
     }
 
+
     /**
-     * @api {post} /locations/find Get location suggestion by BSSID
-     * @apiVersion 0.0.2
-     * @apiName PostFindLocation
-     * @apiGroup Locations
-     * @apiPermission none
+     * @api            {post} /locations/find Get location suggestion by BSSID
+     * @apiVersion     0.0.2
+     * @apiName        PostFindLocation
+     * @apiGroup       Locations
+     * @apiPermission  none
      *
      * @apiDescription Get suggestions of Location by BSSID
      *
@@ -147,8 +152,7 @@ class LocationController extends Controller
 
         $access_points = $access_point->findByBssids($this->json);
 
-        $sorted_by_access_points_count = $access_points->groupBy('location.id')->sortByDesc(function ($accessPoints
-        ) {
+        $sorted_by_access_points_count = $access_points->groupBy('location.id')->sortByDesc(function ($accessPoints) {
             return $accessPoints->count();
         });
 
@@ -160,24 +164,22 @@ class LocationController extends Controller
         $location_ids = array_keys($suggestions_temp);
         $locations = $this->location->with([
             'accessPoints' => function ($query) {
-                $query->select(['id', 'ssid', 'bssid', 'location_id']);
+                $query->select([ 'id', 'ssid', 'bssid', 'location_id' ]);
             }
-        ])
-            ->whereIn('id', $location_ids)->limit($this->limit)->get();
+        ])->whereIn('id', $location_ids)->limit($this->limit)->get();
 
         $suggestions = [];
         foreach ($locations as $location) {
             $suggestions[] = [
-                'location' => $location,
+                'location'    => $location,
                 'match_count' => $suggestions_temp[$location->id]
             ];
         }
 
-        $suggestions = collect($suggestions)
-            ->sortByDesc(function ($suggestion) {
+        $suggestions = collect($suggestions)->sortByDesc(function ($suggestion) {
                 return $suggestion['match_count'];
             })->values();
 
-        return response()->json(['suggestions' => $suggestions]);
+        return response()->json([ 'suggestions' => $suggestions ]);
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
-
 use Illuminate\Support\Debug\Dumper;
 
-if (!function_exists('d')) {
+if ( ! function_exists('d')) {
     /**
      * @param  mixed
+     *
      * @return void
      */
     function d()
@@ -16,10 +16,11 @@ if (!function_exists('d')) {
     }
 }
 
-if (!function_exists('validateJson')) {
+if ( ! function_exists('validateJson')) {
 
     /**
      * @param $json
+     *
      * @throws Exception
      */
     function validateJson($json)

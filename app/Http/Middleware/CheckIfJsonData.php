@@ -6,11 +6,13 @@ use Closure;
 
 class CheckIfJsonData
 {
+
     /**
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
+     * @param  \Closure                 $next
+     *
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -19,6 +21,6 @@ class CheckIfJsonData
             return $next($request);
         }
 
-        return response()->json(['error' => 'Unsupported Media Type'], 415);
+        return response()->json([ 'error' => 'Unsupported Media Type' ], 415);
     }
 }

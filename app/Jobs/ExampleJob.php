@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 class ExampleJob extends Job
 {
+
     /**
      * Create a new job instance.
      *
@@ -13,6 +14,7 @@ class ExampleJob extends Job
     {
         //
     }
+
 
     /**
      * Execute the job.
