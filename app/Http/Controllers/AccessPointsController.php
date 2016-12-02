@@ -7,15 +7,19 @@ use Illuminate\Http\Request;
 
 class AccessPointsController extends Controller
 {
+
     protected $rules = [
         'location_id' => 'required|exists:locations,id',
-        'device_id' => 'required',
-        'bssid' => 'required|size:17',
+        //'device_id' => 'required',
+        'bssid'       => 'required|size:17',
     ];
 
     private $access_point;
+
     private $location_id;
+
     private $json;
+
 
     public function __construct(AccessPoint $access_point)
     {
@@ -27,7 +31,7 @@ class AccessPointsController extends Controller
     /**
      * @apiDefine AccessPointNotFoundError
      *
-     * @apiError AccessPointNotFound The id of the AccessPoint was not found.
+     * @apiError  AccessPointNotFound The id of the AccessPoint was not found.
      *
      * @apiErrorExample {json} Error-Response:
      *     HTTP/1.1 404 Not Found
@@ -39,7 +43,9 @@ class AccessPointsController extends Controller
     /**
      * @apiDefine AccessPointApiParams
      * @apiParam {String}   bssid           MAC address.
-     * @apiParam {integer}  device_id       Unique device id.
+     * @apiParam {String}  [device_id]      <a
+     *           href="https://developer.android.com/reference/android/provider/Settings.Secure.html#ANDROID_ID">Unique
+     *           device id.</a>
      * @apiParam {String}   [ssid]          Name of Wi-Fi.
      * @apiParam {String}   [capabilities]  Capabilities of WiFi.
      * @apiParam {Integer}  [level]         Level.
@@ -48,14 +54,14 @@ class AccessPointsController extends Controller
      */
 
     /**
-     * @api {get} /locations/:location_id/access-points List all access-points for location (:location_id)
-     * @apiVersion 0.0.2
-     * @apiName GetAccessPoints
-     * @apiGroup AccessPoints
+     * @api            {get} /locations/:location_id/access-points List all access-points for location (:location_id)
+     * @apiVersion     0.0.2
+     * @apiName        GetAccessPoints
+     * @apiGroup       AccessPoints
      *
      * @apiDescription Get all access-points for location (:location_id)
      *
-     * @apiExample Example usage:
+     * @apiExample     Example usage:
      * curl -i http://localhost/api/v1/locations/:location_id/access-points
      *
      * @apiSuccess {Array[json]} access_points List of wifi-points.
@@ -100,17 +106,18 @@ class AccessPointsController extends Controller
         return response()->json($this->access_point->locationId($location_id)->get(), 200);
     }
 
+
     /**
-     * @api {get} /locations/:location_id/access-points/:id Read data of a AccessPoint
-     * @apiVersion 0.0.2
-     * @apiName GetAccessPoint
-     * @apiGroup AccessPoints
-     * @apiPermission none
+     * @api            {get} /locations/:location_id/access-points/:id Read data of a AccessPoint
+     * @apiVersion     0.0.2
+     * @apiName        GetAccessPoint
+     * @apiGroup       AccessPoints
+     * @apiPermission  none
      *
      * @apiDescription Get certain AccessPoint by ID
      *
      *
-     * @apiExample Example usage:
+     * @apiExample     Example usage:
      * curl -i http://localhost/api/v1/locations/:location_id/access-points/:id
      * @apiSuccess {Integer}  id
      * @apiSuccess {Integer}  location_id       Location id.
@@ -122,22 +129,25 @@ class AccessPointsController extends Controller
      * @apiSuccess {Integer}  frequency         Frequency.
      * @apiSuccess {Integer}  timestamp         Timestamp.
      *
-     * @apiUse AccessPointNotFoundError
+     * @apiUse         AccessPointNotFoundError
      */
     public function show($location_id, $id)
     {
         return response()->json($this->access_point->locationId($location_id)->findOrFail($id));
     }
 
+
     /**
-     * @api {post} /locations/:location_id/access-points    Create new access-point(s).
-     * @apiVersion 0.0.2
-     * @apiName PostAccessPoint
-     * @apiGroup AccessPoints
+     * @api            {post} /locations/:location_id/access-points    Create new access-point(s).
+     * @apiVersion     0.0.2
+     * @apiName        PostAccessPoint
+     * @apiGroup       AccessPoints
      *
-     * @apiDescription Please see <a href="https://developer.android.com/reference/android/net/wifi/ScanResult.html">ScanResult Android MAN</a>, if AP for certain device_id exists it still returns created array.
+     * @apiDescription Please see <a
+     *                 href="https://developer.android.com/reference/android/net/wifi/ScanResult.html">ScanResult
+     *                 Android MAN</a>, if AP for certain device_id exists it still returns created array.
      *
-     * @apiUse AccessPointApiParams
+     * @apiUse         AccessPointApiParams
      *
      * @apiParamExample {json} Request-Example (single):
      *   {
@@ -209,74 +219,76 @@ class AccessPointsController extends Controller
 
         $created = [];
         foreach ($this->json as $access_point) {
-            $ap = $this->access_point->findByBssidAndDeviceId($access_point['bssid'], $access_point['device_id']);
-            if (is_null($ap)) {
-                $ap = $this->access_point->create(array_merge($access_point,
-                    ['location_id' => $this->location_id]));
-            }
-
+            $ap = $this->access_point->create(array_merge($access_point, [ 'location_id' => $this->location_id ]));
             array_push($created, $ap->id);
         }
 
-        return response()->json(['created' => $created], 201);
+        return response()->json([ 'created' => $created ], 201);
     }
+
 
     private function setJson($json)
     {
         validateJson($json);
 
         if (count($json) === count($json, COUNT_RECURSIVE)) {
-            $json = [$json];
+            $json = [ $json ];
         }
 
         $this->json = $json;
     }
+
 
     private function validateStore(Request $request, array $rules, array $messages = [], array $customAttributes = [])
     {
         foreach ($this->json as $key => $access_point) {
             $messages = $this->formMessages($key);
             $validator = $this->getValidationFactory()->make(array_merge($access_point,
-                ['location_id' => $this->location_id]), $rules, $messages, $customAttributes);
+                [ 'location_id' => $this->location_id ]), $rules, $messages, $customAttributes);
             if ($validator->fails()) {
                 $this->throwValidationException($request, $validator);
             }
         }
     }
 
+
     private function formMessages($key)
     {
         $messages = [
-            'bssid.size' => 'For [' . $key . ']: Bssid must be exactly 17 characters long.',
-            'bssid.required' => 'For [' . $key . ']: Bssid is required field.',
-            'device_id.required' => 'For [' . $key . ']: Device identifier is required field.',
+            'bssid.size'     => 'For ['.$key.']: Bssid must be exactly 17 characters long.',
+            'bssid.required' => 'For ['.$key.']: Bssid is required field.',
         ];
+
         return $messages;
     }
+
 
     private function location($location_id)
     {
         $this->location_id = $location_id;
+
         return $this;
     }
 
+
     /**
-     * @api {delete} /locations/:location_id/access-points/:id Delete a AccessPoint
-     * @apiVersion 0.0.2
-     * @apiName DeleteAccessPoint
-     * @apiGroup AccessPoints
+     * @api           {delete} /locations/:location_id/access-points/:id Delete a AccessPoint
+     * @apiVersion    0.0.2
+     * @apiName       DeleteAccessPoint
+     * @apiGroup      AccessPoints
      * @apiPermission none
      *
      *
      * @apiSuccessExample {json} Success-Response:
      *      HTTP/1.1 204 No content
      *
-     * @apiUse AccessPointNotFoundError
+     * @apiUse        AccessPointNotFoundError
      */
     public function destroy($location_id, $id)
     {
         $access_point = $this->access_point->locationId($location_id)->findOrFail($id);
         $access_point->delete();
+
         return response()->json([], 204);
     }
 }
