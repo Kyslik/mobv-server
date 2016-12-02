@@ -219,7 +219,11 @@ class AccessPointsController extends Controller
 
         $created = [];
         foreach ($this->json as $access_point) {
-            $ap = $this->access_point->create(array_merge($access_point, [ 'location_id' => $this->location_id ]));
+            $ap = $this->access_point->findByBssidAndLocation($access_point['bssid'], $this->location_id);
+            if (is_null($ap)) {
+                $ap = $this->access_point->create(array_merge($access_point, [ 'location_id' => $this->location_id ]));
+            }
+
             array_push($created, $ap->id);
         }
 

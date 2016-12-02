@@ -80,6 +80,11 @@ class AccessPoint extends Model
         return $this->select([ 'id' ])->deviceId($device_id)->bssid($bssid)->first();
     }
 
+    public function findByBssidAndLocation($bssid, $location_id)
+    {
+        return $this->select([ 'id' ])->whereBssid($bssid)->whereLocationId($location_id)->first();
+    }
+
 
     public function findByBssids($bssids = [])
     {
